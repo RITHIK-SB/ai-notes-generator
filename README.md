@@ -13,6 +13,10 @@ generate, review, edit, save, and download them.
 
 ## Quick start
 
+Use Node.js 22.13 or newer within Node 22 (see `.node-version`). The PDF parser
+does not support Node 20. Render must have `NODE_VERSION=22` in its environment;
+an existing dashboard override takes precedence over the blueprint.
+
 ```bash
 npm install               # root dev tooling
 npm run install:all       # installs server/ and client/
@@ -48,6 +52,7 @@ and `AI_MODEL=claude-3-5-haiku-latest` (or another Claude model).
 
 ```bash
 npm test
+npm run test:production # compiled server + real multipart PDF/DOCX/TXT uploads
 ```
 
 40 automated tests cover text extraction (real PDF/DOCX/TXT files, corrupted and

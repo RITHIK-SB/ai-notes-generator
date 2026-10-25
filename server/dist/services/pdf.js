@@ -1,9 +1,9 @@
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
 import * as pdfjs from 'pdfjs-dist/legacy/build/pdf.mjs';
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-// Works from both src/ (tsx dev) and dist/ (compiled): climb to the package root.
-const standardFontDataUrl = path.resolve(__dirname, '../node_modules/pdfjs-dist/standard_fonts') + path.sep;
+// Resolve from the installed package, not src/dist directory depth.
+const require = createRequire(import.meta.url);
+const standardFontDataUrl = path.join(path.dirname(require.resolve('pdfjs-dist/package.json')), 'standard_fonts') + path.sep;
 export async function extractPdfText(buf) {
     const loadingTask = pdfjs.getDocument({
         data: new Uint8Array(buf),
